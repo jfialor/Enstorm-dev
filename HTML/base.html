@@ -1,0 +1,42 @@
+<html>
+<head>
+<title>{% block title %}{% endblock %}</title>
+<meta charset="UTF-8">
+<link href="/static/navbar.css" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>	
+{% block otherheader %}
+{% endblock %}
+</head>
+<body>
+	
+	<div class="container">
+
+		<div id="header">
+	    	<div  id="navbar">
+	        	<ul id="cssnav">
+	        	  <li id="{% block selectedsettings %}{% endblock %}settings"><a href="" id="selected">Settings</a>
+					  <ul>
+						  <li><a href="{% url 'logout'%}">Logout</a></li>
+						  <div class="clear"></div>
+					  </ul>
+					  <div class="clear"></div>
+				  </li>
+	              <li id="{% block selectedmessages %}{% endblock %}messages"><a href="">Messages</a></li>
+	               <li id="{% block selecteddatabase %}{% endblock %}database"><a href="{% url 'user_creation_home' user.username 'A' %}">Database</a></li>
+	               <!--<li id="workshop"><a href="temptool">Workshop</a></li> -->
+	                <li id="{% block selectedlibrary %}{% endblock %}library"><a href="{% url 'user_library_home' user.username%}">Library</a></li>
+	                 <li id="{% block selecteddiscover %}{% endblock %}discover"><a href="/">Discover</a></li>
+	                 <div class="clear"></div>
+	        	</ul>
+	        </div><!-- END NAVBAR -->
+	    </div><!-- END HEADER -->
+	
+	
+	
+	
+		<!-- CONTENT -->
+	{%block content%}
+	{% endblock %}
+	
+</body>
+</html>

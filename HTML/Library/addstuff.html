@@ -1,0 +1,195 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Library
+{% endblock %}
+{% block otherheader %}
+<link href="/static/addstuff.css" rel="stylesheet" type="text/css">
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+<script src="/static/dropit.js"></script>
+
+<script type="text/javascript">
+	
+$(document).ready(function() {
+    $('.menu').dropit();
+});
+</script>
+
+<link rel="stylesheet" href="/static/dropit.css" type="text/css" />
+
+{{ textform.media }}
+
+{% endblock %}
+
+
+{% block selectedlibrary %}selected{% endblock %}
+
+
+{% block content%}
+
+    <div id="main">
+    <div id="sidebar">
+		
+		
+		
+		
+   <div id="newshelf"><a href="{% url 'internewshelf' user.username %}">New Shelf</a></div>
+    <ul>
+	{% for shelf in user_shelfs %}
+	<li class="shelf {{shelf.shelf_type}}"{% if shelf == theshelf %}id="selected"{%else%}{%endif%}><a href="{% url 'user_library_shelf' user.username shelf.id%}">{{shelf.name}}</a></li>
+	{% endfor %}
+	
+	
+</ul>
+		<div id="public"><a href="">Public Profile</a></div>
+    </div><!-- end sidebar -->
+    <div id="content">
+    <div id="filespace" align="center">
+  
+  
+		{% if theshelf.shelf_type.mediatype.name == 'Text' and theshelf.shelf_type.name != 'Stack'%}
+  
+		<form method="post" action="{% url 'new_media' user.username theshelf.id %}" enctype="multipart/form-data" autocomplet="off">{% csrf_token %}
+		
+			<p>{{ textform.user }}</p>
+		
+			<p>{{ textform.non_field_errors }}</p>
+		
+
+			
+			
+			<p>{% if textform.description_body.errors %}
+			<span class="error">
+			{{ textform.description_body.errors|join:", " }}
+			</span>
+			{% endif %}</p>
+			<p><label for="id_description"></label></p>
+			<p>{{ textform.description_body }}</p>
+			
+			<p>{% if textform.disk.errors %}
+			<span class="error">
+			{{ texform.disk.errors|join:", " }}
+			</span>
+			{% endif %}</p>
+			<p><label for="id_tags">Disk:</label>
+				{{textform.disk}}
+			<!-- TO BE IN MORE OPTIONS WITH JAVASCRIPT -->
+			<!--
+			<p>{% if textform.description_excerpt.errors %}
+			<span class="error">
+			{{ textform.description_excerpt.errors|join:", " }}
+			</span>
+			{% endif %}</p>
+			<p><label for="id_descriptionexcerpt">Description (Excerpt):</label></p>
+			<p>{{ textform.description_excerpt }}</p>
+			<p>{% if textform.disk.errors %}
+			<span class="error">
+			{{ texform.disk.errors|join:", " }}
+			</span>
+			{% endif %}</p>
+			<p><label for="id_tags">Disk:</label>
+				{{textform.disk}}-->
+				<!--
+			<select id="id_disk" name="disk">
+			<option value="1" selected="selected">Actualdiskhere</option>
+			  <option value="2" selected="selected">Volvo</option>
+			  <option value="3" selected="selected">Saab</option>
+			  <option value="4">Mercedes</option>
+			  <option value="5">Audi</option>
+			</select> -->
+			</p>
+			<!--
+			<p>Enable Comments:{{textform.enable_comments}}</p>
+			<p>Public : {{textform.public}}
+			</p> -->
+			
+			
+				<!---<p>{{form.as_p}}</p>-->
+
+  
+		{% else %}
+		<div id="contentholder">
+		<p><a href="">Discover</a></p>
+		<p><a href="">Add from database</a></p>
+		<p><a href="">Upload</a></p>
+		</div>
+		{% endif %}
+  
+  
+		<!--
+		<ul>
+			{%for media in theshelf.media.all%}
+					<li><a href="{{media.get_absolute_url}}">{{media.name}}</a></li>
+					{% endfor %}
+		</ul> -->
+ 
+   <!-- <div id="contentholder">You have no text in this shelf...</div> -->
+    </div><!-- end filespace -->
+    <div id="options">
+    <ul>
+		
+		{% if theshelf.shelf_type.mediatype.name == 'Text' and theshelf.shelf_type.name != 'Stack'%}
+		<li class="fileconsole" id='thefilename'>
+		
+			<label for="id_name"></label>
+			{{ textform.name }}</li>
+		<li class="fileconsole" id='extra'>(edit view)</li>
+		<li><a href="options">Preview</a></li>
+		<li><a href=""><input id="save" type="submit" value="Save"></a></li>
+		<li><a href="options">More Options..</a></li>
+		
+
+	
+		{% endif %}
+
+    </ul>
+
+</form>
+    </div><!-- end options -->
+    </div><!-- end content -->
+    <div class="clear"></div>
+    </div><!-- end main -->
+
+</div> <!-- end container -->
+
+
+
+
+<!--
+Your Library
+<ul>
+	{% for shelf in user_shelfs %}
+	<li>{{shelf.name}}{{shelf.type}}<p>{%for media in shelf.media.all%}
+		<p><a href="{{media.get_absolute_url}}">{{media.name}}</a></p>
+		{% endfor %}
+	</p></li>
+	{% endfor %}
+</ul>
+
+<form method="post" action="{% url 'add_shelf' user.username%}">{% csrf_token %}
+	
+	<p>{{form.user}}</p>
+	<p>{% if form.name.errors %}
+	<span class="error">
+	{{ form.name.errors|join:", " }}
+	</span>
+	{% endif %}</p>
+	<p><label for="id_name">Add a shelf:</label>
+	{{ form.name }}</p>
+	
+	
+	<p>{% if form.category.errors %}
+	<span class="error">
+	{{ form.category.errors|join:", " }}
+	</span>
+	{% endif %}</p>
+	<p><label for="id_shelf_type">Shelf Type:</label>
+	{{ form.shelf_type }}</p>
+	
+	
+		#random stuff<p>{{form.as_p}}</p>
+	<p><input type="submit" value="Submit"></p>
+</form>
+-->
+{% endblock %}

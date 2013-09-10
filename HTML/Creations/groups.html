@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %} Group {% endblock %}
+{% block content %}
+	{% for object in media %}
+	<p><a href="/media/{{object.id}}/">{{ object.name }}
+	{{ object.author }}
+	{{ object.creation_date }}</a></p>
+	{% endfor %}
+	<p><a href="/addmedia/">Add Media</a></p>
+	{% for media in another_media %}
+	<p><a href="/media/{{media.id}}/">{{ object.name }}
+	{{ object.user }}
+	{{ object.date_created }}</a></p>
+	 <p><a href="/deletemedia/{{media.id}}/">Delete {{object.name}}</a></p></p>
+	{% endfor %}
+{% endblock %}

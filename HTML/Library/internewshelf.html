@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}
+New Shelf
+{% endblock %}
+
+{% block otherheader %}
+{% endblock %}
+
+
+{% block selectedlibrary %}selected{% endblock %}
+
+
+{% block content %}
+<form method="post" action="{% url 'add_shelf' user.username%}">{% csrf_token %}
+	
+	<p>{{form.user}}</p>
+	<p>{% if form.name.errors %}
+	<span class="error">
+	{{ form.name.errors|join:", " }}
+	</span>
+	{% endif %}</p>
+	<p><label for="id_name">Add a shelf:</label>
+	{{ form.name }}</p>
+	
+	
+	<p>{% if form.category.errors %}
+	<span class="error">
+	{{ form.category.errors|join:", " }}
+	</span>
+	{% endif %}</p>
+	<p><label for="id_shelf_type">Shelf Type:</label>
+	{{ form.shelf_type }}</p>
+	
+	
+		<!---<p>{{form.as_p}}</p>-->
+	<p><input type="submit" value="Submit"></p>
+</form>
+
+{% endblock %}

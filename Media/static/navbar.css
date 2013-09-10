@@ -1,0 +1,220 @@
+@charset "UTF-8";
+
+html, body, div, h1, h2, h3, h4, h5, h6, p, img, dl,
+  dt, dd, ol, ul, li, table, tr, td, form, object, embed,
+  article, aside, canvas, command, details, fieldset,
+  figcaption, figure, footer, group, header, hgroup, legend,
+  mark, menu, meter, nav, output, progress, section, summary,
+  time, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  }
+  
+html, body {
+  height: 100%;
+  width: 100%;
+  min-width:700px;
+  font-family: Calibri;
+  font-weight:200;
+  overflow-x: scroll;
+   white-space:nowrap;
+  }
+ 
+.clear{
+	clear:both;
+	}
+	
+.container {
+	width:100%;
+	margin:auto;
+	height: 100%;
+	/*border: 1px solid #cccccc;*/
+	/*background-color:rgba(102,204,204,1);*/
+		}
+	
+	
+	
+#header #navbar{
+		height: 55px;
+		background-color: rgba(153,153,153,.2);
+		/*background-color:#f7f5f5;*/
+		border-bottom: 1px solid #cccccc;
+		/*background-color:rgba(51,102,204,1);*/
+		z-index:5;
+}
+	
+#header #navbar ul{
+	list-style: none;
+	border-bottom: 1px solid #cccccc;
+	border-collapse:collapse;
+	width: 94%;
+	height: 55px;
+	margin: auto;
+	/*background-color:#f7f5f5;*/
+	/*border: 1px solid #cccccc;*/
+	  }
+	
+#header #navbar li{
+	display: inline;
+	float:right;
+	padding: 0;
+	margin: 0;
+	text-indent: 4px;
+	height: 100%;
+	border-collapse:collapse;
+	margin-left: 50px;
+		}
+
+#header #navbar li:first-child{
+	margin-right: 20px;
+	}
+	
+#header #navbar a{
+		text-decoration: none;
+		display: table-cell;
+		vertical-align:bottom;
+		width: auto;
+		height: 55px;
+		color:#999;
+		}
+
+
+
+/* The CSS Dropdown */
+	
+	
+/*reset styles (most)*/		
+#header #navbar li ul{
+	list-style: none;
+	border-bottom: none;
+	width:auto;;
+	height: 0;
+	margin: none;
+	/*background-color:#f7f5f5;*/
+	/*border: 1px solid #cccccc;*/
+	/*	display: inline;*/
+	/*float:right;*/
+	text-indent: 4px;
+	padding: 0;
+	margin: 0;
+			  		}
+#header #navbar li ul a{/*width:inherit;*/ display:block;  width:auto; height: 55px; /*-webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;*/
+			padding: 0;
+			margin: 0;
+			/*border: 1px solid #000000;*/
+		}
+#header #navbar li li:first-child{margin:0px;	padding: 0;
+	margin: 0;}
+#header #navbar li li{border: 1px solid rgba(255,102,51,1); margin:0; padding:0;
+	float:right;
+	border-collapse:collapse;
+}
+/*#header #navbar li:first-child ul{
+						margin-right: 0;
+						}	
+#header #navbar a ul{
+				text-decoration: none;
+			    display: inline;
+				vertical-align:bottom;
+				width: auto;
+				height: 20px;
+				color:#999;
+			}*/
+#cssnav ul{ position:relative; left:-9999px;}
+#cssnav ul li{
+    /*padding-top:1px;*/
+    float:none;
+}
+#cssnav ul a{
+    white-space:nowrap; /* Stop text wrapping and creating multi-line dropdown items */
+}
+#cssnav li:hover ul{/* Display the dropdown on hover */
+    left:0;/* Bring back on-screen when needed */
+}
+#cssnav li:hover ul a{ /* These create persistent hover states, meaning the top-most link stays 'hovered' even when your cursor has moved down the list. */
+    background:#6b0c36;
+    text-decoration:underline;
+}
+#cssnav li:hover ul a{ /* The persistent hover state does however create a global style for links even before they're hovered. Here we undo these effects. */
+    text-decoration:none;
+}
+#cssnav li:hover ul li a:hover{ /* Here we define the most explicit hover states--what happens when you hover each individual link. */
+    background:#333;
+}
+#header #navbar #settings ul a, #header #navbar #selectedsettings ul a{background:none; background-position:0px 0px; width:80px; height:20px; border:1px solid #cccccc;}
+#header #navbar #settings ul a:hover, #header #navbar #selectedsettings ul a{background:rgba(255,102,51,1);border-bottom:none;color: #ffffff;background-position:0px 0px;}
+		
+/* start nav bar links */
+				
+				
+#header #navbar #settings a, #header #navbar #selectedsettings a{
+	background-image:url(/static/newicons/images2/settings.png);
+	background-repeat:no-repeat;
+	background-position: 15px 5px;
+	}
+	
+#header #navbar #settings a:hover, #header #navbar #selectedsettings a{
+	/*border-bottom: 2px solid rgba(255,102,51,1);*/
+	color: rgba(255,102,51,1);
+	background-position: 15px -60px;
+		}
+							
+
+#header #navbar #messages a, #header #navbar #selectedmessages a{
+	background-image:url(/static/newicons/images2/messages.png);
+	background-repeat:no-repeat;
+	background-position: 20px 5px;
+	}
+	
+#header #navbar #messages a:hover, #header #navbar #selectedmessages a{
+	border-bottom: 2px solid rgba(255,102,51,1);
+	color: rgba(255,102,51,1);
+	background-position: 20px -63px;
+		}
+		
+		
+		
+#header #navbar #database a, #header #navbar #selecteddatabase a{
+	background-image:url(/static/newicons/images2/database.png);
+	background-repeat:no-repeat;
+	background-position: 20px 5px;
+	}
+	
+#header #navbar #database a:hover, #header #navbar #selecteddatabase a{
+	border-bottom: 2px solid rgba(255,102,51,1);
+	color: rgba(255,102,51,1);
+	background-position: 20px -60px;
+		}
+		
+		
+#header #navbar #library a, #header #navbar #selectedlibrary a{
+	background-image:url(/static/newicons/images2/library.png);
+	background-repeat:no-repeat;
+	background-position: 10px 5px;
+	}
+	
+#header #navbar #library a:hover, #header #navbar #selectedlibrary a{
+	border-bottom: 2px solid rgba(255,102,51,1);
+	color: rgba(255,102,51,1);
+	background-position: 10px -60px;
+		}
+#header #navbar #discover a, #header #navbar #selecteddiscover a{
+	background-image:url(/static/newicons/images2/compass.png);
+	background-repeat:no-repeat;
+	background-position: 15px 5px;
+	}
+	
+#header #navbar #discover a:hover, #header #navbar #selecteddiscover a{
+	border-bottom: 2px solid rgba(255,102,51,1);
+	color: rgba(255,102,51,1);
+	background-position: 15px -60px;
+		}
+	
+
+/* end navbar links */
+
+
+

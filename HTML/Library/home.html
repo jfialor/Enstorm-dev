@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Library
+{% endblock %}
+{% block otherheader %}
+<link href="/static/library.css" rel="stylesheet" type="text/css">
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+<script src="/static/dropit.js"></script>
+
+<script type="text/javascript">
+	
+$(document).ready(function() {
+    $('.menu').dropit();
+});
+</script>
+
+<link rel="stylesheet" href="/static/dropit.css" type="text/css" />
+
+{% endblock %}
+
+
+{% block selectedlibrary %}selected{% endblock %}
+
+
+{% block content%}
+
+    <div id="main">
+    <div id="sidebar">
+		
+		
+		
+		
+   <div id="newshelf"><a href="{% url 'internewshelf' user.username %}">New Shelf</a></div>
+    <ul>
+	{% for shelf in user_shelfs %}
+	<li class="shelf {{shelf.shelf_type}}"{% if shelf == theshelf %}id="selected"{%else%}{%endif%}><a href="{% url 'user_library_shelf' user.username shelf.id%}">{{shelf.name}}</a></li>
+	{% endfor %}
+	
+	
+</ul>
+		<div id="public"><a href="">Public Profile</a></div>
+    </div><!-- end sidebar -->
+    <div id="content">
+    <div id="filespace" align="center">
+  
+  
+  
+  
+  
+  
+		<ul>
+			{% if theshelf %}
+			{%for media in theshelf.media.all%}
+					<li><a href="{%url 'media_view' user.username theshelf.id media.id %}">{{media.name}}</a></li>
+					{% empty %}
+					{%if theshelf.shelf_type.name == 'Stack'%}
+					<div id="contentholder">You have no Media in this shelf...</div>
+					{% else %}
+					<div id="contentholder">You have no {{theshelf.shelf_type.mediatype.name}} in this shelf...</div>
+					{% endif %}
+					{% endfor %}
+					{% endif%}
+		</ul>
+ 
+   <!-- <div id="contentholder">You have no text in this shelf...</div> -->
+    </div><!-- end filespace -->
+    <div id="options">
+	{% if theshelf %}	
+	<ul>
+		{% if theshelf.shelf_type.mediatype.name == 'Text'%}
+			{% if theshelf.shelf_type.name == 'Stack'%}
+				<li><a href="{% url 'new_media' user.username theshelf.id %}">Add Media</a></li>
+			{% else %}
+    			<li><a href="{% url 'new_media' user.username theshelf.id %}">New Text</a></li>
+			{% endif %}
+		{% else %}	
+    		<li><a href="{% url 'new_media' user.username theshelf.id %}">Add {{theshelf.shelf_type.mediatype.name}}</a></li>
+		{% endif %}
+		
+
+	
+    	<li><a href="">Shelf Settings</a></li>
+    	<li><a href="">Delete Shelf</a></li>
+		</ul>
+	{% endif %}
+    </div><!-- end options -->
+    </div><!-- end content -->
+    <div class="clear"></div>
+    </div><!-- end main -->
+
+</div> <!-- end container -->
+
+
+
+
+<!--
+Your Library
+<ul>
+	{% for shelf in user_shelfs %}
+	<li>{{shelf.name}}{{shelf.type}}<p>{%for media in shelf.media.all%}
+		<p><a href="{{media.get_absolute_url}}">{{media.name}}</a></p>
+		{% endfor %}
+	</p></li>
+	{% endfor %}
+</ul>
+
+<form method="post" action="{% url 'add_shelf' user.username%}">{% csrf_token %}
+	
+	<p>{{form.user}}</p>
+	<p>{% if form.name.errors %}
+	<span class="error">
+	{{ form.name.errors|join:", " }}
+	</span>
+	{% endif %}</p>
+	<p><label for="id_name">Add a shelf:</label>
+	{{ form.name }}</p>
+	
+	
+	<p>{% if form.category.errors %}
+	<span class="error">
+	{{ form.category.errors|join:", " }}
+	</span>
+	{% endif %}</p>
+	<p><label for="id_shelf_type">Shelf Type:</label>
+	{{ form.shelf_type }}</p>
+	
+	
+		#random stuff<p>{{form.as_p}}</p>
+	<p><input type="submit" value="Submit"></p>
+</form>
+-->
+{% endblock %}

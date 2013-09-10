@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+
+{% block title %} Creations {% endblock %}
+
+{% block otherheader %}
+
+<link href="/static/data.css" rel="stylesheet" type="text/css">
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+<script src="/static/dropit.js"></script>
+
+<script type="text/javascript">
+	
+$(document).ready(function() {
+    $('.menu').dropit();
+});
+</script>
+
+<link rel="stylesheet" href="/static/dropit.css" type="text/css" />
+
+{% endblock %}
+
+{% block selecteddatabase %}selected{% endblock %}
+
+{% block content %}
+
+	<div id="main">
+    	<div id="sidebar">
+        	<div id="thed">
+				
+				
+				
+				<ul class="menu">
+				    <li>
+				        <a href="#" id="letter">{{disk.letter}}</a>
+				        <ul>
+							{% for disk in user_disks %}
+				            <li><a href="{% url 'user_creation_home' user.username disk.letter %}">Disk {{disk.letter}} : {{disk.name}}</a></li>
+							{% endfor %}
+				        </ul>
+				    </li>
+				</ul>
+				
+				
+				
+            	<div id="name">{{disk.name}}</div>
+              <div id="upload"><a href="{%url 'add_media' disk.id%}">Upload</a></div>
+           </div>
+           <div id="therest">
+           <div id="thespace"></div>
+           <div id="diskinfo">
+           <div class="info" id="title">Disk Info</div>
+           <div class="info" id="total">Total Storage: {{disk.space_allocated|filesizeformat}}</div>
+           <div id="spacebar"><!--<div id="line"><div id="circle"></div></div>--></div>
+           <div class="info" id="available">Available: {{disk.space_left|filesizeformat}}</div>
+           <div class="info" id="created">Created: {{disk.date_created|date:'F d, Y'}}</div>
+           </div>
+           </div><!-- end therest -->
+        </div><!-- end sidebar -->
+        
+    	<div id="content">
+        <div id="top">
+        	<div id="space"><form class="form-wrapper cf"><input type="text" placeholder="Search database.." required><button type="submit">Search</button></form></div>
+        	<div id="fileinfobar">
+        	<ul>
+            <li class="name"><a href="titles">NAME</a></li>
+             <li class="size"><a href="titles">SIZE</a></li>
+              <li class="type"><a href="titles">TYPE</a></li>
+               <li class="modified"><a href="titles">MODIFIED</a></li>
+                <li class="status"><a href="titles">STATUS</a></li>
+            </ul>
+            </div>
+        </div>
+        <div id="filespace">
+        
+        {% for media in disk_media %}
+        <div class="file">
+        <ol>
+         <li class="name"><a href="{{media.get_absolute_url}}">{{media.name}}</a></li>
+          <li class="size"><a href="{{media.get_absolute_url}}">{{media.size|filesizeformat}}</a></li>
+           <li class="type"><a href="{{media.get_absolute_url}}">{{media.category}}</a></li>
+            <li class="modified"><a href="{{media.get_absolute_url}}">{{media.date_created|date:'F d, Y'}}</a></li>
+             <li class="status"><a href="{{media.get_absolute_url}}">{% if media.public %} Public {% else %} Private {% endif %}</a></li>
+        </ol>
+        </div>
+		{% empty %}
+		<div id="empty">There is no available media in this disk..</div>
+		{% endfor %}
+
+        
+        
+        
+        <div id="last-line"></div>
+        
+        
+        </div><!-- end filespace -->
+        </div><!-- end content -->
+        <div class="clear"></div>
+        
+    </div><!-- end main -->
+    
+
+
+	</div><!-- END CONTAINER -->
+
+	<!-- OLD STUFF
+	{% for disk in user_disks %}
+	{{disk}}
+	<p>Total Space: {{disk.space_allocated|filesizeformat}}
+	Used: {{disk.space_used|filesizeformat}}
+	Left: {{disk.space_left|filesizeformat}}</p> 
+	<p> All Media:</p> <span><p>{%for media in disk.media_set.all%}
+		<p><a href="{{media.get_absolute_url}}">{{media.name}}</a></p>
+		{% empty%}
+		<p>You have no media yet</p>
+		{% endfor %}</p>
+	</span>
+	<p>Groups:</p> 	{%for group in disk.group_set.all %}
+	<p><a href="{{group.get_absolute_url}}">{{group.name}}</p>
+		{% empty%}
+		<p>You have no groups</p>
+	{% endfor %}
+	<span><p><a href="{%url 'add_media' disk.id%}">Add media</a></p></span></p>
+	<p><a href="{%url 'user_creation_groups' user.username disk.letter%}">Add a group</a></p>
+	<hr>
+	{% endfor %}
+	{% for group in user_groups %}
+	<p><a href="/u/{{user.username}}/creations/group/{{group.id}}/">{{group.name}}
+	{{group.date_created}}</a></p>
+	{% endfor %}
+	
+	{% for media in user_media %}
+	<p><a href="{%url 'media_detail' media.id%}">{{media.name}}
+	{{media.date_created}}</a></p>
+	{% endfor %} -->
+{% endblock%}

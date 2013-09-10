@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Shelve
+{% endblock %}
+
+
+{% block content%}
+Your Available Shelfs
+<ul>
+	{% for shelf in user_shelfs %}
+	<li><a href="{%url 'shelve' user.username media_id shelf.id%}">{{shelf.name}}</a></li>
+	{% endfor %}
+</ul>
+{% endblock %}

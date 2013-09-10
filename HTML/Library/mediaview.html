@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Library
+{% endblock %}
+{% block otherheader %}
+<link href="/static/mediaview.css" rel="stylesheet" type="text/css">
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+<script src="/static/dropit.js"></script>
+
+<script type="text/javascript">
+	
+$(document).ready(function() {
+    $('.menu').dropit();
+});
+</script>
+
+<link rel="stylesheet" href="/static/dropit.css" type="text/css" />
+
+{% endblock %}
+
+
+{% block selectedlibrary %}selected{% endblock %}
+
+
+{% block content%}
+
+    <div id="main">
+    <div id="sidebar">
+		
+		
+		
+		
+   <div id="newshelf"><a href="{% url 'internewshelf' user.username %}">New Shelf</a></div>
+    <ul>
+	{% for shelf in user_shelfs %}
+	<li class="shelf {{shelf.shelf_type}}"{% if shelf == theshelf %}id="selected"{%else%}{%endif%}><a href="{% url 'user_library_shelf' user.username shelf.id%}">{{shelf.name}}</a></li>
+	{% endfor %}
+	
+	
+</ul>
+		<div id="public"><a href="">Public Profile</a></div>
+    </div><!-- end sidebar -->
+    <div id="content">
+    <div id="filespace" align="center">
+  
+  
+  
+  
+  
+  
+		<ul>
+
+			<p>{{ media.name }}</p>
+	
+			<p>{{ media.description_full|safe }}</p>
+			<p>User - <b>{{ media.user }}</b></p>
+			<p>In <a href="/u/{{media.user.username}}/creations/group/{{media.group_id}}/"><em>{{ media.group }}</em></a></p>
+			<a href= "/media/{{ media.docfile }}">The file. </a><span>Size:{{media.size|filesizeformat}}</span>
+			<p><a href="{%url 'delete_media' media.id %}">Delete {{media.name}}</a></p></p>
+			<p>DESCRIPTION BODY: {{media.description_body }}</p>
+			<p>DESCRIPTION_EXCERPT: {{media.description_excerpt}}</p>
+			<p>DESCRIPTION_FULL_HTML: {{media.description_full_html |safe}}</p>
+			<p>DESCRIPTION_EXCERPT_HTML: {{media.description_excerpt_html |safe}}</p>
+			<p>DEBUG: User:{{media.disk.user}}</p>
+			<p>DEBUG: Disk:{{media.disk}}</p>
+			<p><a href="{% url 'intershelve' user.username media.id %}">Shelf this sh</a></p>
+			<p>-----------------------</p>
+			<p>Public - {{media.public}}
+			</p>
+			<p>{% if media.enable_comments %} Comments {% else %} No comments accepted
+				{% endif %}</p>
+
+
+		</ul>
+ 
+   <!-- <div id="contentholder">You have no text in this shelf...</div> -->
+    </div><!-- end filespace -->
+    <div id="options">
+	{% if theshelf %}	
+	<ul>
+		{% if media.category.name == 'Text'%}
+		<li class="fileconsole" id='thefilename'>{{media.name}}</li>
+		<li class="floatright"><a href="options">Delete</a></li>
+    	<li class="floatright"><a href="options">View</a></li>
+    	<li class="floatright"><a href="options">Info</a></li>
+		<li class="floatright"><a href="options">Edit</a></li>
+		<li class="floatright"><a href="options">Share</a></li>
+		{% endif %}
+		</ul>
+	{% endif %}
+    </div><!-- end options -->
+    </div><!-- end content -->
+    <div class="clear"></div>
+    </div><!-- end main -->
+
+</div> <!-- end container -->
+
+
+
+
+<!--
+Your Library
+<ul>
+	{% for shelf in user_shelfs %}
+	<li>{{shelf.name}}{{shelf.type}}<p>{%for media in shelf.media.all%}
+		<p><a href="{{media.get_absolute_url}}">{{media.name}}</a></p>
+		{% endfor %}
+	</p></li>
+	{% endfor %}
+</ul>
+
+<form method="post" action="{% url 'add_shelf' user.username%}">{% csrf_token %}
+	
+	<p>{{form.user}}</p>
+	<p>{% if form.name.errors %}
+	<span class="error">
+	{{ form.name.errors|join:", " }}
+	</span>
+	{% endif %}</p>
+	<p><label for="id_name">Add a shelf:</label>
+	{{ form.name }}</p>
+	
+	
+	<p>{% if form.category.errors %}
+	<span class="error">
+	{{ form.category.errors|join:", " }}
+	</span>
+	{% endif %}</p>
+	<p><label for="id_shelf_type">Shelf Type:</label>
+	{{ form.shelf_type }}</p>
+	
+	
+		#random stuff<p>{{form.as_p}}</p>
+	<p><input type="submit" value="Submit"></p>
+</form>
+-->
+{% endblock %}

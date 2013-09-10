@@ -1,0 +1,66 @@
+<html>
+<head>
+	<title>Add Media Form</title>
+</head>
+<body>
+	logged in user : <b>{{ user.username }}</b>
+	<p></p>
+	<h3>ADD MEDIA FORM</h3>
+	
+	<form method="post" action="{% url 'add_media' disk_id %}" enctype="multipart/form-data">{% csrf_token %}
+		
+		<p>{{ form.user }}</p>
+		
+		<p>{{ form.non_field_errors }}</p>
+		
+		<p>{% if from.name.errors %}
+		<span class="error">
+		{{ form.name.errors|join:", " }}
+		</span>
+		{% endif %}</p>
+		<p><label for="id_name">Name:</label>
+		{{ form.name }}</p>
+		<p>{% if form.category.errors %}
+		<span class="error">
+		{{ form.category.errors|join:", " }}
+		</span>
+		{% endif %}</p>
+		<p><label for="id_category">Category:</label>
+		{{ form.category }}</p>
+		<p>{% if form.description_excerpt.errors %}
+		<span class="error">
+		{{ form.description_excerpt.errors|join:", " }}
+		</span>
+		{% endif %}</p>
+		<p><label for="id_description">Description (Excerpt):</label></p>
+		<p>{{ form.description_excerpt }}</p>
+		<p>{% if form.description_body.errors %}
+		<span class="error">
+		{{ form.description_body.errors|join:", " }}
+		</span>
+		{% endif %}</p>
+		<p><label for="id_description">Description (Body):</label></p>
+		<p>{{ form.description_body }}</p>
+		<p>{{ form.docfile.label_tag }} {{ form.docfile.help_text }}</p>
+		<p>
+			{{ form.docfile.errors }}
+			{{ form.docfile }}
+		</p>
+		<p>{% if form.group.errors %}
+		<span class="error">
+		{{ form.group.errors|join:", " }}
+		</span>
+		{% endif %}</p>
+		<p><label for="id_tags">Group:</label>
+		{{ form.group }}</p>
+		<p>Enable Comments:{{form.enable_comments}}</p>
+		<p>Public : {{form.public}}
+		</p>
+			
+			
+			<!---<p>{{form.as_p}}</p>-->
+		<p><input type="submit" value="Submit and Upload"></p>
+		
+	</form>
+</body>
+</html>
